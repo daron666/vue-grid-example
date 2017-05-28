@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="libs/vue.min.js"></script>
+    <script src="libs/lodash.js"></script>
+    <script src="data/cf.js"></script>
+
+    <script type="text/x-template" id="grid-template">
+
+        <table>
+            <thead>
+            <tr>
+                <th v-for="v in header" @click="sortBy(v)" :class="{ active: sortKey == v}">{{v}}
+                    <span class="arrow" v-if="showArrow(v)" :class="sortOrders[v] > 0 ? 'asc' : 'dsc'"></span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="line in sortedLines">
+                <td v-for="key in header" :class="{ negative: line[key] < 0 }">{{line[key]}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </script>
+
+</head>
+<body>
+<div id="app">
+    <grid :lines="lines" :header="header" :sortable-columns="sortableColumns"></grid>
+</div>
+
+<script src="grid.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
